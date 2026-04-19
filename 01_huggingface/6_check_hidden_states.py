@@ -15,7 +15,7 @@ except ModuleNotFoundError as exc:
         "Missing dependency. Run:\n"
         "  source ../activate_venv.sh\n"
         "  pip install -r requirements.txt\n"
-        "  python3 4_call_model_forward.py"
+        "  python3 6_check_hidden_states.py"
     ) from exc
 
 
@@ -29,26 +29,31 @@ def main() -> None:
 
     print(f"[1/3] loading tokenizer: {model_name}", flush=True)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    encoded = tokenizer(text)
-    print("input_ids:", encoded["input_ids"])
-    print("attention_mask:", encoded["attention_mask"])
 
     print(f"[2/3] loading model: {model_name}", flush=True)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     model.eval()
 
-    print("[3/3] running forward", flush=True)
-    # Bus error 완화를 위해 CPU 스레드/커널 경로를 보수적으로 설정한다.
     torch.set_num_threads(1)
     torch.set_num_interop_threads(1)
     torch.backends.mkldnn.enabled = False
+
     inputs = tokenizer(text, return_tensors="pt")
-    # distilbert는 token_type_ids를 사용하지 않으므로 안전한 키만 전달.
-    model_inputs = {"input_ids": inputs["input_ids"], "attention_mask": inputs["attention_mask"]}
+    model_inputs = {
+        "input_ids": inputs["input_ids"],
+        "attention_mask": inputs["attention_mask"],
+    }
+
+    print("[3/3] forward with output_hidden_states=True", flush=True)
     with torch.inference_mode():
-        outputs = model(**model_inputs)
-    print("logits shape:", outputs.logits.shape)
-    print("logits:", outputs.logits)
+        outputs = model(**model_inputs, output_hidden_states=True)
+
+    hs = outputs.hidden_states
+    print("hidden_states type:", type(hs))
+    print("num tensors (embedding + layers):", len(hs))
+    for i, h in enumerate(hs):
+        print(f"  hidden_states[{i}] shape: {tuple(h.shape)}")
+    print("last layer shape:", tuple(hs[-1].shape))
 
 
 if __name__ == "__main__":
