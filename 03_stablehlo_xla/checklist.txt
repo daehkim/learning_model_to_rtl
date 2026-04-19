@@ -1,0 +1,4 @@
+Step 3 — StableHLO / OpenXLA
+[ ] Skim StableHLO ops you already know from PyTorch names (matmul, softmax, etc.)
+[ ] Trace one model: framework graph -> exported IR (pick one toolchain when ready)
+[ ] Note which ops are "fused" or lowered differently per backend

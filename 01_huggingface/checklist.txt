@@ -1,0 +1,6 @@
+Step 1 — Hugging Face (top of stack)
+[ ] python -m venv .venv && source .venv/bin/activate
+[ ] pip install --upgrade --force-reinstall -r requirements.txt
+[ ] python run_small_model.py
+[ ] Add prints or hooks: where token ids become embeddings, where attention runs
+[ ] Optional: transformers Trainer with a micro dataset for train_step vs eval_step

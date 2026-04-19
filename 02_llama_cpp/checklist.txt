@@ -1,0 +1,5 @@
+Step 2 — llama.cpp (inference runtime)
+[ ] Build llama.cpp locally (CPU path first)
+[ ] Run a small GGUF; watch tokens/sec and memory
+[ ] Experiment: context length, batch, quant format (Q4_K_M, etc.)
+[ ] Read how KV cache is stored and updated between decode steps

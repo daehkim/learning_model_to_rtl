@@ -1,0 +1,5 @@
+Step 4 — tinygrad (compact end-to-end stack)
+[ ] pip install -r requirements.txt (separate venv is fine)
+[ ] python trace_matmul.py
+[ ] In tinygrad repo: locate lazy.py / scheduler / codegen for your backend
+[ ] Repeat for a single attention-like pattern (two matmuls + softmax) once matmul is clear

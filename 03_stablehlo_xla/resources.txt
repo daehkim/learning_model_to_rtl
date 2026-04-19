@@ -1,0 +1,8 @@
+Step 3 — IR / compiler boundary (read + small experiments)
+StableHLO language reference:
+https://openxla.org/stablehlo/spec
+
+OpenXLA documentation hub:
+https://openxla.org/
+
+Optional hands-on: JAX export / XLA paths once you are comfortable with step 1–2.
