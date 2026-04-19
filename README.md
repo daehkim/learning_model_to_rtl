@@ -1,6 +1,17 @@
 # learning_model_to_rtl
 Learning about the LLM Model to RTL
 
+## Repository layout
+
+| Path | Focus |
+|------|--------|
+| [01_huggingface/](01_huggingface/) | Tiny Transformers run + checklist |
+| [02_llama_cpp/](02_llama_cpp/) | Local inference runtime (build/run notes) |
+| [03_stablehlo_xla/](03_stablehlo_xla/) | IR / OpenXLA reading list |
+| [04_tinygrad/](04_tinygrad/) | Small end-to-end stack trace |
+
+Shared Python venv (repo root): `source ./activate_venv.sh` — creates `.venv` if missing, then activates it.
+
 ## Step 1: Running a Small Model Firsthand
 Start by loading a very small text model or classifier using Hugging Face. The goal is to understand the entire pipeline: how inputs pass through the tokenizer, go into the model’s forward pass, and produce an output. The Transformers documentation is an excellent entry point for getting started quickly with pipelines and model loading.
 
